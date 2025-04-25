@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.4",
+    "buffer": "^6.0.3",
     "parcel": "^2.14.4"
   }
 }
