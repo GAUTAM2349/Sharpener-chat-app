@@ -1,12 +1,45 @@
-
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../../../config/axiosConfig";
 
 const LoginPage = () => {
-  const backgroundImageUrl = 'https://images.unsplash.com/photo-1525302220185-c387a117886e?auto=format&fit=crop&w=1950&q=80';
+  const backgroundImageUrl =
+    "https://images.unsplash.com/photo-1525302220185-c387a117886e?auto=format&fit=crop&w=1950&q=80";
 
-  const handleSubmit = (e) => {
+  const [message, setMessage] = useState(null);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    window.alert("your form subitted");
-}
+    const { email, password } = e.target;
+
+    const input = {
+      email: email.value,
+      password: password.value,
+    };
+
+    console.log(input); //************* */
+
+    try {
+      const response = await api.post("/user/login", input);
+      const { message, token } = response.data;
+
+      if (token) {
+        localStorage.setItem("token", token);
+      }
+      
+      setMessage(response.data.message);
+      setError(null);
+    } catch (error) {
+      if (error.response && error.response.data) {
+        setError(error.response.data.message);
+      } else {
+        setError(error.message);
+      }
+      setMessage(null);
+    }
+  };
 
   return (
     <div
@@ -16,8 +49,12 @@ const LoginPage = () => {
       <div className="absolute inset-0 bg-black opacity-60 z-0"></div>
       <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl z-10">
         <div className="text-center">
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">Welcome Back!</h2>
-          <p className="mt-2 text-sm text-gray-600">Please sign in to your account</p>
+          <h2 className="mt-6 text-3xl font-bold text-gray-900">
+            Welcome Back!
+          </h2>
+          <p className="mt-2 text-sm text-gray-600">
+            Please sign in to your account
+          </p>
         </div>
 
         <div className="flex justify-center items-center space-x-3">
@@ -38,21 +75,27 @@ const LoginPage = () => {
           <span className="h-px w-16 bg-gray-300"></span>
         </div>
 
-        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+        <form onSubmit={handleFormSubmit} className="mt-8 space-y-6">
           <div className="relative">
-            <label className="text-sm font-bold text-gray-700 tracking-wide">Email</label>
+            <label className="text-sm font-bold text-gray-700 tracking-wide">
+              Email
+            </label>
             <input
               type="email"
+              name="email"
               placeholder="mail@gmail.com"
               className="w-full text-base py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
             />
           </div>
 
           <div className="mt-8">
-            <label className="text-sm font-bold text-gray-700 tracking-wide">Password</label>
+            <label className="text-sm font-bold text-gray-700 tracking-wide">
+              Password
+            </label>
             <input
               type="password"
               placeholder="Enter your password"
+              name="password"
               className="w-full text-base py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
             />
           </div>
@@ -65,12 +108,18 @@ const LoginPage = () => {
                 type="checkbox"
                 className="h-4 w-4 bg-indigo-500 focus:ring-indigo-400 border-gray-300 rounded"
               />
-              <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900">
+              <label
+                htmlFor="remember_me"
+                className="ml-2 block text-sm text-gray-900"
+              >
                 Remember me
               </label>
             </div>
             <div className="text-sm">
-              <a href="#" className="font-medium text-indigo-500 hover:text-indigo-500">
+              <a
+                href="#"
+                className="font-medium text-indigo-500 hover:text-indigo-500"
+              >
                 Forgot your password?
               </a>
             </div>
@@ -94,6 +143,11 @@ const LoginPage = () => {
               Sign up
             </a>
           </p>
+
+          {error && <span className="mt-[5px] text-red-500">{error}</span>}
+          {message && (
+            <span className="mt-[5px] text-green-400">{message}</span>
+          )}
         </form>
       </div>
     </div>
