@@ -1,0 +1,4 @@
+* login - redirection
+* login- logout toogle
+* lazy loading proper functioning
+* smooth scroll
