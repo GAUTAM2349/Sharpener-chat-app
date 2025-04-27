@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../../config/axiosConfig";
+import UserContext from "../../../utils/UserContext";
 
 const LoginPage = () => {
   const backgroundImageUrl =
@@ -9,6 +10,7 @@ const LoginPage = () => {
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -28,6 +30,8 @@ const LoginPage = () => {
       if (token) {
         localStorage.setItem("token", token);
       }
+      console.log("loggedin user", response.data)
+      setUser({ id: response.data.userId });
       
       setMessage(response.data.message);
       setError(null);

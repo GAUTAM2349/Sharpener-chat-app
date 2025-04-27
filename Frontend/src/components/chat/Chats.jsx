@@ -10,6 +10,7 @@ const Chats = () => {
     const {chats} = useContext(ChatsContext);
     const {user} = useContext(UserContext);
     console.log("user is ",user);
+    console.log("chats is",chats);
 
     return (
         <>

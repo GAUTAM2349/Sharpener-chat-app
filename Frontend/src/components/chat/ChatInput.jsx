@@ -1,23 +1,27 @@
 
 import axios from "axios"; 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import api from '../../../config/axiosConfig';
+import UserContext from "../../../utils/UserContext";
 
-const ChatInput = () => {
+let num = 0;
+
+const ChatInput = ({setTemp}) => {
   const [message, setMessage] = useState("");
+  const {user} = useContext(UserContext);
 
   const handleSend = async () => {
     if (!message.trim()) return; 
 
     try {
       
-      await api.post("/chat", {
-        senderId: 1,         
-        receiverId: 2,       
+      await api.post(`/chat/${user.id}`, {
+        senderId: user.id,         
+        receiverId: user.id==1?2:1,       
         message: message.trim(),
       });
 
-      
+      setTemp(++num);
       setMessage("");
     } catch (err) {
       console.log("Failed to send message:", err);
