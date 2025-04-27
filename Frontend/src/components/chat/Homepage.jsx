@@ -17,28 +17,29 @@ const Homepage = () => {
 
   
   
-  useEffect( () => {
-
-    const getChats = async() => {
-
-     try{
-
-      console.log("TTTTTTTTTTT is ",temp);
-
-      const response = await api.get(`/chat/${user.id}`);
-
-      console.log("response",response.data);
-      setChats(response.data);
-     }catch(error){
-      console.log(error);
-     }
-
-      
-    }
-
-    getChats();
+  useEffect(() => {
+    const getChats = async () => {
+      try {
+        console.log("Fetching chats for user:", user.id);
+        const response = await api.get(`/chat/${user.id}`);
+        setChats(response.data);
+      } catch (error) {
+        console.log("Error fetching chats:", error);
+      }
+    };
+  
     
-  },[temp])
+    getChats();
+  
+    
+    const intervalId = setInterval(() => {
+      getChats();
+    }, 1000); 
+  
+    
+    return () => clearInterval(intervalId);
+  }, [user.id]); 
+  
 
   return (
     <>

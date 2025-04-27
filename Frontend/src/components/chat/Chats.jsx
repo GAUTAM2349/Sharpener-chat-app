@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import ChatsContext from "../../../utils/ChatsContext";
 import UserContext from '../../../utils/UserContext';
 import OutgoingMessage from "./OutgoingMessage";
@@ -9,8 +9,14 @@ const Chats = () => {
 
     const {chats} = useContext(ChatsContext);
     const {user} = useContext(UserContext);
-    console.log("user is ",user);
-    console.log("chats is",chats);
+    const bottomRef = useRef(null);
+
+    useEffect(() => {
+      
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [chats]);
+
+    
 
     return (
         <>
@@ -22,7 +28,7 @@ const Chats = () => {
             return (<IncomingMessage key={idx+"chat"} chat={chat}/>)
             
         }) }
-        
+         <div ref={bottomRef} />
         </>
     )
     

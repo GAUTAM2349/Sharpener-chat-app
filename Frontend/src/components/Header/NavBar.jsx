@@ -14,7 +14,7 @@ function NavBar() {
     <Navbar expand="lg" className="bg-body-tertiary sticky-top">
       <div className="px-[10px]"> user is : {user.id}</div>
       <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Brand href="#home">Wutaap?</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
