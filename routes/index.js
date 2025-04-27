@@ -1,3 +1,4 @@
 const {Router:UserRouter} = require("./user");
+const {Router : ChatRouter } = require("./chat");
 
-module.exports = {UserRouter}
+module.exports = {UserRouter, ChatRouter}

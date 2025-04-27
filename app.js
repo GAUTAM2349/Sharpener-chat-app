@@ -7,7 +7,7 @@ const app = express();
 
 
 const cors = require("cors");
-const { UserRouter } = require("./routes");
+const { UserRouter, ChatRouter } = require("./routes");
 const { logIncomingRequests } = require("./middlewares/requests");
 
 app.use(express.urlencoded({ extended: true }));
@@ -30,6 +30,7 @@ syncDB();
 
 
 app.use("/user", UserRouter)
+app.use("/chat",ChatRouter);
 
 
 
