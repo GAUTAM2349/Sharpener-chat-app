@@ -27,12 +27,18 @@ const LoginPage = () => {
       const response = await api.post("/user/login", input);
       const { message, token } = response.data;
 
-      if (token) {
-        localStorage.setItem("token", token);
+      if (response.status === 200) {
+        if (token) {
+          localStorage.setItem("token", token);
+          navigate("/home");
+        } else {
+          setError("Very critical error bro");
+          return;
+        }
       }
-      console.log("loggedin user", response.data)
+
+      console.log("loggedin user", response.data);
       setUser({ id: response.data.userId });
-      
       setMessage(response.data.message);
       setError(null);
     } catch (error) {

@@ -3,20 +3,17 @@ const { Op } = require("sequelize");
 const { Chat } = require("../models");
 
 const getChats = async (req, res) => {
-  const {id} = req.params; 
-  console.log("\n\n\n\nid is "+id);
+  const {groupId} = req.params; 
+  console.log("\n\n\n\nid is ",groupId);
   try {
     const chats = await Chat.findAll({
       where: {
-        [Op.or]: [
-          { senderId: id },
-          { receiverId: id }
-        ]
+        groupId
       },
       order: [['createdAt', 'ASC']]  // Order chats by the most recent
     });
 
-    if (!chats || chats.length === 0) {
+    if (!chats) {
       return res.status(404).json({ message: "No chats found" });
     }
 
@@ -29,18 +26,20 @@ const getChats = async (req, res) => {
 };
 
 const addChat = async (req, res) => {
-  const {id} = req.params; 
-  const { senderId, receiverId, message } = req.body;
+  
+  const { senderId, groupId, message } = req.body;
+  console.log("\n\n req infor sender, group , message ",senderId, groupId, message);
 
   try {
-    if (!receiverId || !message || message.length === 0) {
+    if (!senderId || !groupId || !message || message.length === 0) {
       return res.status(400).json({ message: "Invalid request" });
     }
 
     const chat = await Chat.create({
       senderId,
-      receiverId,
-      message
+      groupId,
+      message,
+      
     });
 
     return res.status(201).json(chat);

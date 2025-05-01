@@ -94,4 +94,35 @@ const userLogin = async (req,res) => {
   
 }
 
-module.exports = { userSignup, userLogin };
+
+
+
+
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.findAll({
+      attributes: { exclude: ["password"] } // Hides password for security
+    });
+
+    return res.status(200).json({
+      success: true,
+      users,
+    });
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to retrieve users.",
+      error: error.message,
+    });
+  }
+};
+
+
+const userLoginStatus = (req, res) => {
+  return res.status(200).json({message : "user is loggedin", userId:req.userId});
+}
+
+
+
+module.exports = { userSignup, userLogin, getAllUsers, userLoginStatus };

@@ -1,14 +1,15 @@
 import { useContext, useEffect, useRef } from "react";
 import ChatsContext from "../../../utils/ChatsContext";
-import UserContext from '../../../utils/UserContext';
 import OutgoingMessage from "./OutgoingMessage";
 import IncomingMessage from "./IncomingMessage";
+import { AuthContext } from "../../../utils/AuthProvider";
 
 
 const Chats = () => {
 
     const {chats} = useContext(ChatsContext);
-    const {user} = useContext(UserContext);
+    const {loggedinUser:userId} = useContext(AuthContext);
+    console.log("chat got user id form auth context : ", userId);
     const bottomRef = useRef(null);
 
     useEffect(() => {
@@ -20,15 +21,16 @@ const Chats = () => {
 
     return (
         <>
-
+        <div className="h-[700px]">
         {chats.map( (chat,idx) => {
             
-            if(chat.senderId == user?.id)
+            if(chat.senderId == userId)
             return  (<OutgoingMessage key={idx+"chat"} chat={chat}/>)
             return (<IncomingMessage key={idx+"chat"} chat={chat}/>)
             
         }) }
          <div ref={bottomRef} />
+         </div>
         </>
     )
     

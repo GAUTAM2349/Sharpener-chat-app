@@ -3,28 +3,33 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import api from '../../../config/axiosConfig';
 import UserContext from "../../../utils/UserContext";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../utils/AuthProvider";
+
+
 
 let num = 0;
 
-const ChatInput = ({setTemp}) => {
+const ChatInput = ({groupId}) => {
   const [message, setMessage] = useState("");
-  const {user} = useContext(UserContext);
+  const {loggedinUser:userId} = useContext(AuthContext);
+  console.log("inside chatinput userid is ", userId)
+  const navigate = useNavigate();
 
   const handleSend = async () => {
     if (!message.trim()) return; 
 
     try {
       
-      await api.post(`/chat/${user.id}`, {
-        senderId: user.id,         
-        receiverId: user.id==1?2:1,       
+      await api.post(`/chat`, {
+        senderId: userId,         
+        groupId,      
         message: message.trim(),
       });
 
-      setTemp(++num);
       setMessage("");
-    } catch (err) {
-      console.log("Failed to send message:", err);
+    } catch (error) {
+      console.log("Failed to send message:", error);
     }
   };
 

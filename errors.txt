@@ -1,1 +1,9 @@
 1> Error: Too many keys specified; max 64 keys allowed
+
+// pbm is that , for one-to-one also belongsTo is used and one-to-many also, so same magical method is
+  provided by sequelize in both cases..
+
+ original: Error: Duplicate entry '2-1' for key 'group_members.PRIMARY'
+
+ Error creating group: EagerLoadingError [SequelizeEagerLoadingError]: user is associated to groups multiple times.
+  

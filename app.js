@@ -7,8 +7,9 @@ const app = express();
 
 
 const cors = require("cors");
-const { UserRouter, ChatRouter } = require("./routes");
+const { UserRouter, ChatRouter, GroupRouter } = require("./routes");
 const { logIncomingRequests } = require("./middlewares/requests");
+const loggedinUsersOnly = require("./middlewares/loggedinUsersOnly");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -30,7 +31,8 @@ syncDB();
 
 
 app.use("/user", UserRouter)
-app.use("/chat",ChatRouter);
+app.use("/chat",loggedinUsersOnly,ChatRouter);
+app.use("/group", loggedinUsersOnly,GroupRouter);
 
 
 

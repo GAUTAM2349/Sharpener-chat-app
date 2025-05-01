@@ -2,3 +2,4 @@
 * login- logout toogle
 * lazy loading proper functioning
 * smooth scroll
+* self user selection should not be present , should be included manually in backend

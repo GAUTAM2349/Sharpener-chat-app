@@ -4,15 +4,16 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link } from "react-router-dom";
-import UserContext from "../../../utils/UserContext";
+
+import { AuthContext } from '../../../utils/AuthProvider';
 
 function NavBar() {
 
-  const {user} = useContext(UserContext);
+  const {loggedinUser} = useContext(AuthContext);
   
   return (
     <Navbar expand="lg" className="bg-body-tertiary sticky-top">
-      <div className="px-[10px]"> user is : {user.id}</div>
+      <div className="px-[10px]"> user is : {loggedinUser}</div>
       <Container>
         <Navbar.Brand href="#home">Wutaap?</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -20,6 +21,7 @@ function NavBar() {
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/home">Home</Nav.Link>
             <Nav.Link as={Link} to="/login">Login</Nav.Link>
+            <Nav.Link as={Link} to="/create-group">create+</Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>

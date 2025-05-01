@@ -6,20 +6,23 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "./src/components/Header/NavBar";
 const Login = lazy(() => import("./src/components/auth/Login"));
 import Signup from "./src/components/auth/Signup";
-import Homepage from "./src/components/chat/Homepage";
+import Chatpage from "./src/components/chat/Chatpage";
 import UserContext from "./utils/UserContext";
 import ChatsContext from "./utils/ChatsContext";
 import UserProvider from "./utils/UserProvider";
+import Homepage from "./src/components/Homepage/Homepage";
+import CreateGroup from "./src/components/Group/CreateGroup";
+import { PrivateRoute } from "./utils/PrivateRoute";
+import { AuthProvider } from "./utils/AuthProvider";
 
 // const AppLayout = () => {
 
 //   const [user, setUser] = useState(0);
-  
+
 //   const getUser = () =>{
-//       const response = 
+//       const response =
 //   }
-  
-  
+
 //   return (
 //     <>
 //       <div className="relative">
@@ -35,33 +38,37 @@ import UserProvider from "./utils/UserProvider";
 
 const AppLayout = () => {
   return (
-    <div className="relative">
-      <UserProvider>
-        <NavBar />
-        <Outlet />
-      </UserProvider>
-    </div>
+    <PrivateRoute>
+      <div className="relative">
+        <UserProvider>
+          <NavBar />
+          <Outlet />
+        </UserProvider>
+      </div>
+    </PrivateRoute>
   );
 };
 
-
 const appRouter = createBrowserRouter([
-
   {
     path: "/",
     element: <AppLayout />,
     children: [
+      {
+        path: "/chat",
+        element: <Chatpage />,
+      },
+
       {
         path: "/home",
         element: <Homepage />,
       },
 
       {
-        path: "/login",
-        element: <Login />,
+        path: "/create-group",
+        element: <CreateGroup />,
       },
-
-          ],
+    ],
   },
 
   {
@@ -73,8 +80,11 @@ const appRouter = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={appRouter} />);
+root.render(
+  <AuthProvider>
+    <RouterProvider router={appRouter} />
+  </AuthProvider>
+);
