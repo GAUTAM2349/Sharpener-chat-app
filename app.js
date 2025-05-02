@@ -4,8 +4,6 @@ const express = require("express");
 
 const app = express();
 
-
-
 const cors = require("cors");
 const { UserRouter, ChatRouter, GroupRouter } = require("./routes");
 const { logIncomingRequests } = require("./middlewares/requests");

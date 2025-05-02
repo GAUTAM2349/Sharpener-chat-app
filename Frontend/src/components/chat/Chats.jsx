@@ -9,7 +9,7 @@ const Chats = () => {
 
     const {chats} = useContext(ChatsContext);
     const {loggedinUser:userId} = useContext(AuthContext);
-    console.log("chat got user id form auth context : ", userId);
+    
     const bottomRef = useRef(null);
 
     useEffect(() => {
@@ -21,7 +21,7 @@ const Chats = () => {
 
     return (
         <>
-        <div className="h-[700px]">
+        <div className="">
         {chats.map( (chat,idx) => {
             
             if(chat.senderId == userId)

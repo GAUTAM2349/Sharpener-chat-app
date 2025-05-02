@@ -1,29 +1,25 @@
-
-import axios from "axios"; 
+import axios from "axios";
 import { useContext, useState } from "react";
-import api from '../../../config/axiosConfig';
+import api from "../../../config/axiosConfig";
 import UserContext from "../../../utils/UserContext";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../utils/AuthProvider";
 
-
-
 let num = 0;
 
-const ChatInput = ({groupId}) => {
+const ChatInput = ({ groupId }) => {
   const [message, setMessage] = useState("");
-  const {loggedinUser:userId} = useContext(AuthContext);
-  console.log("inside chatinput userid is ", userId)
+  const { loggedinUser: userId } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   const handleSend = async () => {
-    if (!message.trim()) return; 
+    if (!message.trim()) return;
 
     try {
-      
       await api.post(`/chat`, {
-        senderId: userId,         
-        groupId,      
+        senderId: userId,
+        groupId,
         message: message.trim(),
       });
 
@@ -34,7 +30,7 @@ const ChatInput = ({groupId}) => {
   };
 
   return (
-    <footer className="bg-white border-t border-gray-300 p-4 sticky bottom-0">
+    <footer className="bg-white border-t border-green-300 w-full p-2">
       <div className="flex items-center">
         <input
           type="text"

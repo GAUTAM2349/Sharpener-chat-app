@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const { setUser } = require("../services/jwt");
 
 const userSignup = async (req, res) => {
-  console.log("entered")
+  console.log("entered");
   const { name, email, password, phone } = req.body;
 
   if (!email || !password || !name || !phone) {
@@ -48,10 +48,7 @@ const userSignup = async (req, res) => {
   }
 };
 
-
-
-const userLogin = async (req,res) => {
-
+const userLogin = async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -82,7 +79,7 @@ const userLogin = async (req,res) => {
     return res.status(200).json({
       message: "Logged in successfully.",
       token: authenticationToken,
-      userId : user.id
+      userId: user.id,
     });
   } catch (error) {
     console.error("Login Error:", error);
@@ -91,17 +88,12 @@ const userLogin = async (req,res) => {
       error: error.message,
     });
   }
-  
-}
-
-
-
-
+};
 
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.findAll({
-      attributes: { exclude: ["password"] } // Hides password for security
+      attributes: { exclude: ["password"] },
     });
 
     return res.status(200).json({
@@ -118,11 +110,10 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-
 const userLoginStatus = (req, res) => {
-  return res.status(200).json({message : "user is loggedin", userId:req.userId});
-}
-
-
+  return res
+    .status(200)
+    .json({ message: "user is loggedin", userId: req.userId });
+};
 
 module.exports = { userSignup, userLogin, getAllUsers, userLoginStatus };

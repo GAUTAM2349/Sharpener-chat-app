@@ -1,5 +1,5 @@
-// AuthContext.js
 import { createContext, useState, useEffect } from "react";
+
 import api from "../config/axiosConfig";
 
 export const AuthContext = createContext();
@@ -12,10 +12,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await api.get("/user/login-status"); // Replace with your actual endpoint
+        const response = await api.get("/user/login-status");
+
         setIsAuthenticated(true);
         const user = response.data.userId;
-        console.log("inside user context userid is ",user)
         setLoggedinUser(user);
       } catch (err) {
         setIsAuthenticated(false);
@@ -27,7 +27,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, isLoadingAuth, loggedinUser }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, isLoadingAuth, loggedinUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

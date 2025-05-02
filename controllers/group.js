@@ -1,61 +1,7 @@
-// const { Group, GroupMembers, User } = require('../models');
-
-// const createGroup = async (req, res) => {
-//   try {
-//     const { groupName, userIds, adminId } = req.body;
-
-//     if (!groupName || !adminId || !Array.isArray(userIds) || userIds.length === 0) {
-//       return res.status(400).json({ message: 'Group name, adminId, and userIds are required.' });
-//     }
-
-//     const memberIds = userIds.includes(adminId) ? userIds : [...userIds, adminId];
-
-//     const group = await Group.create({
-//       name: groupName,
-//       adminId,
-//     });
-
-//     const membersToInsert = memberIds.map((userId) => ({
-//       userId,
-//       groupId: group.id,
-//     }));
-
-//     console.log(membersToInsert);
-
-//     await GroupMembers.bulkCreate(membersToInsert);
-
-//     const createdGroup = await Group.findOne({
-//       where: { id: group.id },
-//       include: [
-//         {
-//           model: User,
-//           through: { attributes: [] }, // omit through table details
-//           attributes: ['id', 'name', 'email'],
-//         },
-//         {
-//           model: User,
-//           as: 'admin', // if you've set up alias
-//           attributes: ['id', 'name'],
-//         },
-//       ],
-//     });
-
-//     return res.status(201).json({
-//       message: 'Group created successfully',
-//       group: createdGroup,
-//     });
-//   } catch (error) {
-//     console.error('Error creating group:', error);
-//     return res.status(500).json({ message: 'Internal server error', error: error.message });
-//   }
-// };
-
-// module.exports = { createGroup };
-
 const { Group, GroupMembers, User } = require("../models");
 
 const getAllGroups = async (req, res) => {
-  console.log("\n\nyes came to get all groups \n\n")
+  console.log("\n\nyes came to get all groups \n\n");
   try {
     const user = req.user;
     const userId = req.userId;

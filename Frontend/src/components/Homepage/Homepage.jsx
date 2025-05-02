@@ -9,7 +9,7 @@ const Homepage = () => {
     
   return (
     <>
-      <div className="flex">
+      <div className="flex flex-grow-1">
         <Sidebar setCurrGroup={setCurrGroup} />
         <Chatpage  currGroup={currGroup}/>
       </div>

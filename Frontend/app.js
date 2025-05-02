@@ -38,6 +38,8 @@ import { AuthProvider } from "./utils/AuthProvider";
 
 const AppLayout = () => {
   return (
+    <>
+    <AuthProvider>
     <PrivateRoute>
       <div className="relative">
         <UserProvider>
@@ -46,6 +48,8 @@ const AppLayout = () => {
         </UserProvider>
       </div>
     </PrivateRoute>
+    </AuthProvider>
+    </>
   );
 };
 
@@ -84,7 +88,7 @@ const appRouter = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <AuthProvider>
+  
     <RouterProvider router={appRouter} />
-  </AuthProvider>
-);
+  
+);   

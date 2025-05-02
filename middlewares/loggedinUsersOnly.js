@@ -3,7 +3,8 @@ const { getUser } = require("../services/jwt.js");
 
 async function loggedinUsersOnly(req, res, next) {
   try {
-    const userToken = req.headers["token"];
+    
+    const userToken = req.headers["authorization"];
     
     if (!userToken) {
       return res

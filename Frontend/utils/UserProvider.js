@@ -2,7 +2,7 @@ import  { useState } from "react";
 import UserContext from "./UserContext";
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState({ id: 0 }); // initially logged out
+  const [user, setUser] = useState({ id: 0 }); 
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
