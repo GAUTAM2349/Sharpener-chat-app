@@ -30,7 +30,7 @@ syncDB();
 
 app.use("/user", UserRouter)
 app.use("/chat",loggedinUsersOnly,ChatRouter);
-app.use("/group", loggedinUsersOnly,GroupRouter);
+app.use("/group",loggedinUsersOnly,GroupRouter);
 
 
 

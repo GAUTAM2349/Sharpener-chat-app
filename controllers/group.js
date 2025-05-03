@@ -1,40 +1,91 @@
 const { Group, GroupMembers, User } = require("../models");
 
 const getAllGroups = async (req, res) => {
-  console.log("\n\nyes came to get all groups \n\n");
   try {
     const user = req.user;
     const userId = req.userId;
 
-    // Check if userId is present
     if (!userId || typeof userId !== "number") {
       return res.status(400).json({ error: "Invalid or missing user ID" });
     }
 
-    const joinedGroups = await user.getMemberGroups();
-    console.log(JSON.stringify(joinedGroups));
+    const joinedGroups = await user.getMemberGroups({
+      joinTableAttributes: ["role"],
+    });
 
-    // If no group memberships found
-    if (!joinedGroups || joinedGroups.length === 0) {
-      return res
-        .status(200)
-        .json({ message: "No group memberships found", groups: [] });
-    }
-
-    // Extract and filter group data
-    const groups = joinedGroups.map((entry) => entry.group);
-
-    res.status(200).json({ joinedGroups });
+    return res.status(200).json({ joinedGroups });
   } catch (error) {
     console.error("Error fetching user groups:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
+const getAllMembersOfAGroup = async (req, res) => {
+  try {
+    const { groupId } = req.params;
+    const group = await Group.findByPk(groupId);
+
+    if (!group) return res.status(404).json({ message: "Group not found" });
+
+    const groupMembers = await group.getMembers({
+      through: { attributes: ["role"] },
+      attributes: ["id", "name", "email"],
+    });
+
+    return res.status(200).json({ message: "Fetched members", groupMembers });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+const deleteGroupMember = async (req, res) => {
+  try {
+    const { groupId, memberUserId } = req.params;
+
+    const deleted = await GroupMembers.destroy({
+      where: { groupId, userId: memberUserId },
+    });
+
+    if (!deleted) {
+      return res.status(404).json({ message: "User not found in group" });
+    }
+
+    return res.status(200).json({ message: "User removed from group" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+const addGroupAdmin = async (req, res) => {
+  try {
+    console.log("entered to make admin");
+    const { groupId, adminUserId } = req.params;
+
+    const result = await GroupMembers.update(
+      { role: "admin" },
+      { where: { groupId, userId: adminUserId } }
+    );
+
+    if (result[0] === 0) {
+      return res
+        .status(404)
+        .json({ message: "User is not a member of the group" });
+    }
+
+    return res.status(200).json({ message: "User promoted to admin" });
+  } catch (error) {
+    console.error("Error promoting user to admin:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 const createGroup = async (req, res) => {
   try {
     const { groupName, userIds, adminId } = req.body;
-
+    const user = req.user;
+    
     if (
       !groupName ||
       !adminId ||
@@ -46,41 +97,28 @@ const createGroup = async (req, res) => {
         .json({ message: "Group name, adminId, and userIds are required." });
     }
 
-    // Ensure admin is part of the group
     const memberIds = userIds.includes(adminId)
       ? userIds
       : [...userIds, adminId];
 
-    // Create the group
-    const group = await Group.create({
-      name: groupName,
-      adminId,
-    });
+    const group = await user.createGroup({ name: groupName });
 
-    // Prepare and insert group members
     const membersToInsert = memberIds.map((userId) => ({
       userId,
       groupId: group.id,
+      role: userId === adminId ? "owner" : "member",
     }));
 
     await GroupMembers.bulkCreate(membersToInsert);
 
-    // Fetch full group details including members and admin
     const createdGroup = await Group.findOne({
       where: { id: group.id },
-      include: [
-        {
-          model: User,
-          as: "members", // This MUST match your belongsToMany `as`
-          through: { attributes: [] },
-          attributes: ["id", "name", "email"],
-        },
-        {
-          model: User,
-          as: "admin", // This MUST match your belongsTo `as`
-          attributes: ["id", "name"],
-        },
-      ],
+      include: {
+        model: User,
+        as: "members",
+        through: { attributes: ["role"] },
+        attributes: ["id", "name", "email"],
+      },
     });
 
     return res.status(201).json({
@@ -95,4 +133,10 @@ const createGroup = async (req, res) => {
   }
 };
 
-module.exports = { createGroup, getAllGroups };
+module.exports = {
+  createGroup,
+  getAllGroups,
+  getAllMembersOfAGroup,
+  deleteGroupMember,
+  addGroupAdmin,
+};

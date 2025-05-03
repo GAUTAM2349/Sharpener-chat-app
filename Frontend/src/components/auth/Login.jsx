@@ -16,21 +16,23 @@ const LoginPage = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = e.target;
-
+    console.log("entered to send you login info")
     const input = {
       email: email.value,
       password: password.value,
     };
 
     try {
+      console.log("sedning request to server next");
       const response = await api.post("/user/login", input);
+      console.log("details sent successfully")
       const { message, token } = response.data;
 
       if (response.status === 200) {
         if (token) {
           localStorage.setItem("token", token);
           setTimeout(() => {
-            navigate("/home");
+            navigate("/");
           }, 0);
         } else {
           setError("Very critical error bro");

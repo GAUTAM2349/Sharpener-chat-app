@@ -1,4 +1,4 @@
-import React, { lazy, useState } from "react";
+import React, { lazy, Suspense, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,6 +14,7 @@ import Homepage from "./src/components/Homepage/Homepage";
 import CreateGroup from "./src/components/Group/CreateGroup";
 import { PrivateRoute } from "./utils/PrivateRoute";
 import { AuthProvider } from "./utils/AuthProvider";
+import GroupInfo from "./src/components/chat/GroupInfo";
 
 // const AppLayout = () => {
 
@@ -56,35 +57,42 @@ const AppLayout = () => {
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <AppLayout />,
+    element: <AppLayout />, // includes NavBar, Auth
     children: [
       {
-        path: "/chat",
-        element: <Chatpage />,
+        path: "/",
+        element: <Homepage />, // ← always shows sidebar
+        children: [
+          {
+            path: "chats/:groupId/:ownerId",
+            element: <Chatpage />,
+          },
+          {
+            path: "group-info/:groupId/:ownerId",
+            element: <GroupInfo />,
+          },
+        ],
       },
-
-      {
-        path: "/home",
-        element: <Homepage />,
-      },
-
       {
         path: "/create-group",
         element: <CreateGroup />,
       },
     ],
   },
-
   {
     path: "/signup",
     element: <Signup />,
   },
-
   {
     path: "/login",
-    element: <Login />,
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Login />
+      </Suspense>
+    ),
   },
 ]);
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

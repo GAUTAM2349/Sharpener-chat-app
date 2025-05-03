@@ -113,7 +113,7 @@ const getAllUsers = async (req, res) => {
 const userLoginStatus = (req, res) => {
   return res
     .status(200)
-    .json({ message: "user is loggedin", userId: req.userId });
+    .json({ message: "user is loggedin",  user : req.user });
 };
 
 module.exports = { userSignup, userLogin, getAllUsers, userLoginStatus };
