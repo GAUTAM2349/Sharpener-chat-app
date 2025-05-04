@@ -4,11 +4,18 @@ const { Chat } = require("../models");
 
 const getChats = async (req, res) => {
   const {groupId} = req.params; 
+  const timeCursor = req.query.timeCursor;
+
+  console.log("time cursor is : ", timeCursor);
   console.log("\n\n\n\nid is ",groupId);
+
   try {
     const chats = await Chat.findAll({
       where: {
-        groupId
+        groupId,
+        createdAt : {
+          [Op.gt] : new Date(timeCursor)
+        }
       },
       order: [['createdAt', 'ASC']]  // Order chats by the most recent
     });
@@ -17,7 +24,7 @@ const getChats = async (req, res) => {
       return res.status(404).json({ message: "No chats found" });
     }
 
-    return res.status(200).json(chats);
+    return res.status(200).json({chats});
 
   } catch (error) {
     console.log(error);
