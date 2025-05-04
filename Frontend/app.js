@@ -42,7 +42,7 @@ const AppLayout = () => {
     <>
     <AuthProvider>
     <PrivateRoute>
-      <div className="relative">
+      <div className="relative bg-blue-600 h-[100vh] overflow-hidden">
         <UserProvider>
           <NavBar />
           <Outlet />

@@ -30,19 +30,19 @@ const ChatInput = ({ groupId }) => {
   };
 
   return (
-    <footer className="bg-white border-t border-green-300 w-full p-2">
-      <div className="flex items-center">
+    <footer className="bg-amber-200 border-t absolute bottom-0 border-green-300 w-full mr-3 p-2 px-10">
+      <div className="flex   px-10  items-center">
         <input
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Type a message..."
-          className="w-full p-2 rounded-md border border-gray-400 focus:outline-none focus:border-blue-500"
+          className="w-full  h-[7vh] p-2 rounded-2xl border bg-white  border-blue-400 focus:outline-none focus:border-blue-400"
         />
         <button
           onClick={handleSend}
           disabled={!message.trim()}
-          className={`px-4 py-2 rounded-md ml-2 text-white ${
+          className={`px-4 py-2 h-[7vh] mx-0.5 rounded-2xl ml-2 text-white ${
             message.trim()
               ? "bg-indigo-500 hover:bg-indigo-600"
               : "bg-gray-300 cursor-not-allowed"

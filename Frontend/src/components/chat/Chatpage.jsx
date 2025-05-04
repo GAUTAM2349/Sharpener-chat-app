@@ -52,6 +52,7 @@ import api from "../../../config/axiosConfig";
 import GroupInfo from "./GroupInfo"; // Import it
 import { useNavigate, useParams } from "react-router-dom";
 import { Navigate } from 'react-router-dom';
+import NavBar from "../Header/NavBar";
 
 const Chatpage = () => {
   const [chats, setChats] = useState(null);
@@ -76,10 +77,10 @@ const Chatpage = () => {
 
 
   return (
-    <div className="h-[91vh] w-full flex flex-col bg-amber-200 relative">
-      
+    <div className="h-[100vh]  w-full flex flex-col pb-[100px] bg-amber-200 relative">
+      <NavBar/>
         <div
-          className="absolute top-0 py-2 px-3 bg-green-600 left-11 cursor-pointer text-white rounded hover:bg-green-700"
+          className="absolute z-100 top-2 right-3  w-[150px] py-2 px-3 bg-green-600  cursor-pointer text-white rounded hover:bg-green-700"
           onClick={() => navigate(`/group-info/${currGroup}/${ownerId}`)}
         >
           Group Info
@@ -95,12 +96,13 @@ const Chatpage = () => {
 
       {chats && (
         <>
-          <div className="flex-1 overflow-y-auto px-2">
+          <div className="flex-1 overflow-y-auto px-2 ">
             <ChatsContext.Provider value={{ chats }}>
               <Chats />
             </ChatsContext.Provider>
-
+            
             <ChatInput groupId={currGroup} />
+            
           </div>
         </>
       )}

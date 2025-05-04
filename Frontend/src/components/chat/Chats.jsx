@@ -21,7 +21,7 @@ const Chats = () => {
 
     return (
         <>
-        <div className="">
+        <div className=" h-[100%] mt-2">
         {chats.map( (chat,idx) => {
             
             if(chat.senderId == userId)

@@ -40,8 +40,10 @@ const LoginPage = () => {
         }
       }
 
-      console.log("loggedin user", response.data);
-      setUser({ id: response.data.userId });
+
+
+      // console.log("loggedin user", response.data);
+      // setUser({ id: response.data.userId });
       setMessage(response.data.message);
       setError(null);
     } catch (error) {
@@ -83,11 +85,11 @@ const LoginPage = () => {
             </span>
           </div>
 
-          <div className="flex items-center justify-center space-x-2">
+          {/* <div className="flex items-center justify-center space-x-2">
             <span className="h-px w-16 bg-gray-300"></span>
-            <span className="text-gray-500 font-normal">OR</span>
+             <span className="text-gray-500 font-normal">OR</span> 
             <span className="h-px w-16 bg-gray-300"></span>
-          </div>
+          </div> */}
 
           <form onSubmit={handleFormSubmit} className="mt-8 space-y-6">
             <div className="relative">
@@ -114,31 +116,6 @@ const LoginPage = () => {
               />
             </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember_me"
-                  name="remember_me"
-                  type="checkbox"
-                  className="h-4 w-4 bg-indigo-500 focus:ring-indigo-400 border-gray-300 rounded"
-                />
-                <label
-                  htmlFor="remember_me"
-                  className="ml-2 block text-sm text-gray-900"
-                >
-                  Remember me
-                </label>
-              </div>
-              <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-medium text-indigo-500 hover:text-indigo-500"
-                >
-                  Forgot your password?
-                </a>
-              </div>
-            </div>
-
             <div>
               <button
                 type="submit"
@@ -149,9 +126,9 @@ const LoginPage = () => {
             </div>
 
             <p className="flex flex-col items-center justify-center mt-10 text-center text-md text-gray-500">
-              <span>Don't have an account?</span>
+              {/* <span>Don't have an account?</span> */}
               <a
-                href="#"
+                href="/signup"
                 className="text-indigo-500 hover:text-indigo-500 no-underline hover:underline cursor-pointer transition ease-in duration-300"
               >
                 Sign up

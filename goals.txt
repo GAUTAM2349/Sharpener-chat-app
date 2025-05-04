@@ -1,0 +1,2 @@
+1> Proper handling of all edge cases.
+2> Using best possible methodd to fetch data - findOne/findByPk

@@ -5,24 +5,13 @@ const SidebarHeader = ({menuOpen, setMenuOpen}) => {
     return (
 
         <>
-        <header className="p-4  border-b border-gray-300 flex justify-between items-center bg-indigo-600 text-white">
-        <h1 className="text-2xl font-semibold">gootar-gOo</h1>
+        <header className="p-4 sticky top-0 border-b border-gray-300 flex justify-between items-center bg-green-400 text-white">
+        <h1 className="text-5xl font-extrabold text-[#ff5f5f] tracking-wider border-b-8 border-amber-200 pb-2 drop-shadow-md font-[Noto Sans Devanagari]">
+    गुटर-गू
+  </h1>
 
         {/* Create group button */}
-        <button>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-gray-100"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M10 2a2 2 0 012 2v3h3a2 2 0 012 2v6a2 2 0 01-2 2h-3v3a2 2 0 01-2 2H8a2 2 0 01-2-2v-3H3a2 2 0 01-2-2V7a2 2 0 012-2h3V4a2 2 0 012-2h4z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
+        
 
         {/* Menu */}
         <div className="relative">

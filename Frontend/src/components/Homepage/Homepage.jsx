@@ -6,6 +6,7 @@ import {
   GroupOwnerContext,
   GroupOwnerProvider,
 } from "../../../utils/GroupOwnerContext";
+import NavBar from "../Header/NavBar";
 
 // const Homepage = () => {
 
@@ -28,9 +29,10 @@ const Homepage = () => {
 
   return (
     <GroupOwnerProvider>
-      <div className="flex h-screen">
+      <div className="flex h-[100%] ">
         <Sidebar currGroup={currGroup} setCurrGroup={setCurrGroup} />
         <Outlet />
+        
       </div>
     </GroupOwnerProvider>
   );

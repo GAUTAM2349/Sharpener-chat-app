@@ -38,11 +38,11 @@ const Sidebar = ({ currGroup ,setCurrGroup }) => {
   
 
   return (
-    <div className="w-1/4  h-[95vh] overflow-scroll bg-green-300 border-r border-gray-300">
+    <div className="w-1/4  sticky top-0  overflow-scroll bg-green-300 border-r border-gray-300">
       {/* Sidebar Header */}
       <SidebarHeader setMenuOpen={setMenuOpen} menuOpen={menuOpen} />
       {/* Group List */}
-      <div className="overflow-hidden h-screen p-3 mb-9 pb-20">
+      <div className="overflow-hidden  px-3 mb-9">
         {loading ? (
           <p className="text-gray-500 text-center mt-4">Loading groups...</p>
         ) : groups.length === 0 ? (

@@ -2,6 +2,8 @@ const { User } = require("../models");
 const bcrypt = require("bcrypt");
 const { setUser } = require("../services/jwt");
 
+/* *********************S I G N U P********************************* */
+
 const userSignup = async (req, res) => {
   console.log("entered");
   const { name, email, password, phone } = req.body;
@@ -12,7 +14,12 @@ const userSignup = async (req, res) => {
       .json({ message: "Name, email, and password are required." });
   }
 
-  if (!email.includes("@") || !email.includes(".")) {
+  if (phone.length != 10 || !/^\d{10}$/.test(phone)) {
+    return res.status(400).json({ message: "Invalid phone number." });
+  }
+
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!emailRegex.test(email)) {
     return res.status(400).json({ message: "Invalid email format." });
   }
 
@@ -48,6 +55,8 @@ const userSignup = async (req, res) => {
   }
 };
 
+/* **************************** L O G I N ********************************************* */
+
 const userLogin = async (req, res) => {
   const { email, password } = req.body;
 
@@ -62,7 +71,7 @@ const userLogin = async (req, res) => {
 
     if (!user) {
       return res.status(404).json({
-        message: "Invalid credentials",
+        message: " No user found ",
       });
     }
 
@@ -70,7 +79,7 @@ const userLogin = async (req, res) => {
 
     if (!isPasswordValid) {
       return res.status(401).json({
-        message: "Invalid email or password.",
+        message: "Invalid email or password",
       });
     }
 
@@ -89,6 +98,8 @@ const userLogin = async (req, res) => {
     });
   }
 };
+
+/* *********************************** Get Users ******************************* */
 
 const getAllUsers = async (req, res) => {
   try {
@@ -111,9 +122,7 @@ const getAllUsers = async (req, res) => {
 };
 
 const userLoginStatus = (req, res) => {
-  return res
-    .status(200)
-    .json({ message: "user is loggedin",  user : req.user });
+  return res.status(200).json({ message: "user is loggedin", user: req.user });
 };
 
 module.exports = { userSignup, userLogin, getAllUsers, userLoginStatus };

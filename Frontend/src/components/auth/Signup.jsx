@@ -3,30 +3,44 @@ import api from "../../../config/axiosConfig";
 import { useState } from "react";
 
 const Signup = () => {
-
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-    
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const { name, email, phone, password } = e.target;
     const input = {
       name: name.value,
       email: email.value,
-      phone : phone.value,
+      phone: phone.value,
       password: password.value,
     };
 
-    console.log(input); //************* */
-
     try {
       const response = await api.post("/user/signup", input);
+      const loginResponse = await api.post("/user/login", {
+        email: input.email,
+        password: input.password,
+      });
+
+      const { message, token } = loginResponse.data;
       
-      setMessage(response.data.message);
+      if (loginResponse.status === 200) {
+        if (token) {
+          localStorage.setItem("token", token);
+          setTimeout(() => {
+            navigate("/");
+          }, 100);
+        } else {
+          navigate("/login");
+          return;
+        }
+      }
+
+      setMessage(loginResponse.data.message);
       setError(null);
     } catch (error) {
-      
       if (error.response && error.response.data) {
         setError(error.response.data.message);
       } else {
@@ -34,9 +48,8 @@ const Signup = () => {
       }
       setMessage(null);
     }
-    
   };
-    
+
   return (
     <div className="bg-white relative lg:py-20">
       <div className="flex flex-col items-center justify-between pt-0 pr-10 pb-0 pl-10 mt-0 mr-auto mb-0 ml-auto max-w-7xl xl:px-5 lg:flex-row">
@@ -51,10 +64,11 @@ const Signup = () => {
             </div>
           </div>
 
-
-
           <div className="w-full mt-20 mr-0 mb-0 ml-0 relative z-10 max-w-2xl lg:mt-0 lg:w-5/12">
-            <form onSubmit={handleFormSubmit} className="flex flex-col items-start justify-start pt-10 pr-10 pb-10 pl-10 bg-white shadow-2xl rounded-xl relative z-10">
+            <form
+              onSubmit={handleFormSubmit}
+              className="flex flex-col items-start justify-start pt-10 pr-10 pb-10 pl-10 bg-white shadow-2xl rounded-xl relative z-10"
+            >
               <p className="w-full text-4xl font-medium text-center leading-snug font-serif">
                 Sign up for an account
               </p>
@@ -121,8 +135,10 @@ const Signup = () => {
                   </button>
                 </div>
               </div>
-              { error &&  (<span className="mt-[5px] text-red-500">{error}</span>) }
-              { message && (<span className="mt-[5px] text-green-400">{message}</span>)}
+              {error && <span className="mt-[5px] text-red-500">{error}</span>}
+              {message && (
+                <span className="mt-[5px] text-green-400">{message}</span>
+              )}
             </form>
 
             {/* Background SVGs */}
@@ -140,7 +156,6 @@ const Signup = () => {
               {/* SVG circles can stay as-is */}
             </svg>
           </div>
-    
         </div>
       </div>
     </div>
