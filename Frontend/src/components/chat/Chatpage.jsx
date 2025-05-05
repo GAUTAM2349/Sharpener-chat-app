@@ -1,16 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Chats from "./Chats";
 import ChatInput from "./ChatInput";
 import ChatsContext from "../../../utils/ChatsContext";
 import api from "../../../config/axiosConfig";
 import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "../Header/NavBar";
+import { GroupOwnerContext } from "../../../utils/GroupOwnerContext";
 
 
 
 const Chatpage = () => {
   const [chats, setChats] = useState([]);
   const { groupId: currGroup, ownerId } = useParams();
+  const {group} = useContext(GroupOwnerContext);
   const navigate = useNavigate();
 
 
@@ -62,12 +64,14 @@ const Chatpage = () => {
 
   return (
     <div className="h-[100vh]  w-full flex flex-col pb-[100px] bg-amber-200 relative">
+      <div className="mb-4">
       <NavBar />
+      </div>
       <div
         className="absolute z-100 top-2 right-3  w-[150px] py-2 px-3 bg-green-600  cursor-pointer text-white rounded hover:bg-green-700"
         onClick={() => navigate(`/group-info/${currGroup}/${ownerId}`)}
       >
-        Group Info
+        {group.name}
       </div>
 
       {/* {showGroupInfo && (

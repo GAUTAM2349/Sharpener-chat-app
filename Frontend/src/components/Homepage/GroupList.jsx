@@ -4,7 +4,7 @@ import { GroupOwnerContext } from "../../../utils/GroupOwnerContext";
 
 const GroupList = ({ index, group, setCurrGroup }) => {
   const navigate = useNavigate();
-  const { setGroupOwner } = useContext(GroupOwnerContext);
+  const { setGroup } = useContext(GroupOwnerContext);
 
   return (
     <div
@@ -12,7 +12,7 @@ const GroupList = ({ index, group, setCurrGroup }) => {
       className="flex items-center mb-4 cursor-pointer hover:bg-gray-100 p-2 rounded-md"
       onClick={() => {
         setCurrGroup(group.id);
-        setGroupOwner(group.ownerId);
+        setGroup(group);
         console.log("set group id to", group.id);
 
         setTimeout(() => {

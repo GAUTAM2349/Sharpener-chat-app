@@ -5,11 +5,11 @@ export const GroupOwnerContext = createContext();
 
 export const GroupOwnerProvider = ({children}) => {
 
-    const [groupOwner, setGroupOwner] = useState(null);
+    const [group, setGroup] = useState({});
 
     return (
 
-        <GroupOwnerContext.Provider value={ { groupOwner, setGroupOwner }} >
+        <GroupOwnerContext.Provider value={ { group, setGroup }} >
             {children}
         </GroupOwnerContext.Provider>
         

@@ -10,7 +10,7 @@ const SidebarHeader = ({menuOpen, setMenuOpen}) => {
     गुटर-गू
   </h1>
 
-        {/* Create group button */}
+        
         
 
         {/* Menu */}

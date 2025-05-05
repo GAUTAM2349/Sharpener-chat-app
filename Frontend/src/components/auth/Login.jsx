@@ -1,8 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../../config/axiosConfig";
-import UserContext from "../../../utils/UserContext";
-import { AuthContext } from "../../../utils/AuthProvider";
+
 
 const LoginPage = () => {
   const backgroundImageUrl =
@@ -11,7 +10,7 @@ const LoginPage = () => {
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
+  
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();

@@ -7,35 +7,14 @@ import NavBar from "./src/components/Header/NavBar";
 const Login = lazy(() => import("./src/components/auth/Login"));
 import Signup from "./src/components/auth/Signup";
 import Chatpage from "./src/components/chat/Chatpage";
-import UserContext from "./utils/UserContext";
-import ChatsContext from "./utils/ChatsContext";
-import UserProvider from "./utils/UserProvider";
+
+
 import Homepage from "./src/components/Homepage/Homepage";
 import CreateGroup from "./src/components/Group/CreateGroup";
 import { PrivateRoute } from "./utils/PrivateRoute";
 import { AuthProvider } from "./utils/AuthProvider";
 import GroupInfo from "./src/components/chat/GroupInfo";
 
-// const AppLayout = () => {
-
-//   const [user, setUser] = useState(0);
-
-//   const getUser = () =>{
-//       const response =
-//   }
-
-//   return (
-//     <>
-//       <div className="relative">
-//         <UserContext.Provider value={{ user: { id: 1 } }}>
-//           <NavBar />
-
-//           <Outlet />
-//         </UserContext.Provider>
-//       </div>
-//     </>
-//   );
-// };
 
 const AppLayout = () => {
   return (
@@ -43,10 +22,10 @@ const AppLayout = () => {
     <AuthProvider>
     <PrivateRoute>
       <div className="relative bg-blue-600 h-[100vh] overflow-hidden">
-        <UserProvider>
+        
           <NavBar />
           <Outlet />
-        </UserProvider>
+        
       </div>
     </PrivateRoute>
     </AuthProvider>
