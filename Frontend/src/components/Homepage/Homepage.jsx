@@ -5,6 +5,8 @@ import { Outlet } from "react-router-dom";
 import {
   GroupOwnerProvider,
 } from "../../../utils/GroupOwnerContext";
+import NavBar from "../Header/NavBar";
+
 
 
 
@@ -15,8 +17,11 @@ const Homepage = () => {
     <GroupOwnerProvider>
       <div className="flex h-[100%] ">
         <Sidebar currGroup={currGroup} setCurrGroup={setCurrGroup} />
+
+        <div className="flex flex-col flex-1">
+          <NavBar/>
         <Outlet />
-        
+        </div>
       </div>
     </GroupOwnerProvider>
   );

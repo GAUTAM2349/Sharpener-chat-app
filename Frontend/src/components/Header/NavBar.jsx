@@ -14,8 +14,8 @@ function NavBar() {
   
   return (
     
-    <Navbar expand="lg" className="bg-green-500 z-10 ">
-      <div className="px-[10px] text-white font-bold">  {user.name.toUpperCase()}</div>
+    <Navbar expand="lg" className="bg-green-500 z-10  ">
+      
       
       <Container>
         

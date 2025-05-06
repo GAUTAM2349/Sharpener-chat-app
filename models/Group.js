@@ -6,10 +6,7 @@ const Group = sequelize.define("groups", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  // ownerId: {
-  //   type: DataTypes.INTEGER,
-  //   allowNull: false,
-  // },
+  
 },{
     timestamps : false
 });

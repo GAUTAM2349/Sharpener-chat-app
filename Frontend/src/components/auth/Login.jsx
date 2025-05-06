@@ -74,10 +74,10 @@ const LoginPage = () => {
 
           <div className="flex justify-center items-center space-x-3">
             <span className="w-11 h-11 flex items-center justify-center rounded-full bg-blue-900 text-white text-lg font-bold cursor-pointer hover:shadow-lg transition ease-in duration-300">
-              {/* Add your SVG icon here */}
+              
             </span>
             <span className="w-11 h-11 flex items-center justify-center rounded-full bg-blue-400 text-white text-lg font-bold cursor-pointer hover:shadow-lg transition ease-in duration-300">
-              {/* Add your SVG icon here */}
+              
             </span>
             <span className="w-11 h-11 flex items-center justify-center rounded-full bg-blue-500 text-white text-lg font-bold cursor-pointer hover:shadow-lg transition ease-in duration-300">
               {/* Add your SVG icon here */}
@@ -125,7 +125,7 @@ const LoginPage = () => {
             </div>
 
             <p className="flex flex-col items-center justify-center mt-10 text-center text-md text-gray-500">
-              {/* <span>Don't have an account?</span> */}
+              
               <a
                 href="/signup"
                 className="text-indigo-500 hover:text-indigo-500 no-underline hover:underline cursor-pointer transition ease-in duration-300"

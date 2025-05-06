@@ -141,19 +141,19 @@ const Signup = () => {
               )}
             </form>
 
-            {/* Background SVGs */}
+            
             <svg
               viewBox="0 0 91 91"
               className="absolute top-0 left-0 z-0 w-32 h-32 -mt-12 -ml-12 text-yellow-300 fill-current"
             >
-              {/* SVG circles can stay as-is */}
+              
             </svg>
 
             <svg
               viewBox="0 0 91 91"
               className="absolute bottom-0 right-0 z-0 w-32 h-32 -mb-12 -mr-12 text-indigo-500 fill-current"
             >
-              {/* SVG circles can stay as-is */}
+              
             </svg>
           </div>
         </div>

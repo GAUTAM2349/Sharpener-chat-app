@@ -1,39 +1,50 @@
 require("dotenv").config();
-const { sequelize } = require("./config/database");
 const express = require("express");
-
-const app = express();
-
 const cors = require("cors");
+const http = require("http");
+const { Server } = require("socket.io");
+
+const { sequelize } = require("./config/database");
 const { UserRouter, ChatRouter, GroupRouter } = require("./routes");
 const { logIncomingRequests } = require("./middlewares/requests");
 const loggedinUsersOnly = require("./middlewares/loggedinUsersOnly");
+const setupSocket = require("./socket");
 
+const app = express();
+const server = http.createServer(app); 
+const io = new Server(server, {
+  cors: {
+    origin: "*", 
+    methods: ["GET", "POST"],
+  },
+});
+
+
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
 app.use(logIncomingRequests);
 
-const PORT = process.env.PORT;
+
+app.use("/user", UserRouter);
+app.use("/chat", loggedinUsersOnly, ChatRouter);
+app.use("/group", loggedinUsersOnly, GroupRouter);
+
 
 const syncDB = async () => {
-    try {
-      await sequelize.sync({ alter: true });
-      console.log("Database synced");
-    } catch (error) {
-      console.error("Error syncing database: ", error);
-    }
-  };
-
+  try {
+    await sequelize.sync({ alter: true });
+    console.log("Database synced");
+  } catch (error) {
+    console.error("Error syncing database: ", error);
+  }
+};
 syncDB();
 
 
-app.use("/user", UserRouter)
-app.use("/chat",loggedinUsersOnly,ChatRouter);
-app.use("/group",loggedinUsersOnly,GroupRouter);
+setupSocket(io);
 
-
-
-app.listen(PORT, () => {
-  console.log("Server started..");
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
 });

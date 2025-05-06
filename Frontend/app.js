@@ -23,7 +23,7 @@ const AppLayout = () => {
     <PrivateRoute>
       <div className="relative bg-blue-600 h-[100vh] overflow-hidden">
         
-          <NavBar />
+          {/* <NavBar /> */}
           <Outlet />
         
       </div>

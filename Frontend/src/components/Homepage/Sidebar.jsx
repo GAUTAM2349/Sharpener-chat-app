@@ -10,7 +10,7 @@ const Sidebar = ({ currGroup ,setCurrGroup }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Fetch groups from backend
+  
   useEffect(() => {
     const fetchGroups = async () => {
       try {
@@ -38,8 +38,8 @@ const Sidebar = ({ currGroup ,setCurrGroup }) => {
   
 
   return (
-    <div className="w-[45%]  sticky top-0  overflow-scroll bg-green-300 border-r border-gray-300">
-      {/* Sidebar Header */}
+    <div className=" w-[35%] md:w-[40%] xl:w-[30%]  sticky top-0  overflow-scroll bg-green-300 border-r border-gray-300">
+      
       <SidebarHeader setMenuOpen={setMenuOpen} menuOpen={menuOpen} />
       {/* Group List */}
       <div className="overflow-hidden  px-3 mb-9">

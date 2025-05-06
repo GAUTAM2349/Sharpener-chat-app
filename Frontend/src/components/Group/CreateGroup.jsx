@@ -52,7 +52,7 @@ const CreateGroup = () => {
       console.log("error in creating group :  ",error);
     }
     
-    // closeModal();
+    
   };
 
   return (

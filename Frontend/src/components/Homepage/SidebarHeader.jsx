@@ -1,17 +1,22 @@
+import { useContext } from "react";
+import { AuthContext } from "../../../utils/AuthProvider";
 
+const SidebarHeader = ({ menuOpen, setMenuOpen }) => {
+  const { loggedinUser, user } = useContext(AuthContext);
 
-const SidebarHeader = ({menuOpen, setMenuOpen}) => {
+  return (
+    <>
+      <header className="p-4 sticky top-0 border-b border-gray-300 flex justify-between items-center bg-green-400 text-white">
+        <div className="flex items-center">
+          <div className="text-5xl font-extrabold text-white tracking-wider border-b-8 border-amber-200 pb-2 drop-shadow-md font-[Noto Sans Devanagari]">
+            गुटर-गू
+          </div>
 
-    return (
-
-        <>
-        <header className="p-4 sticky top-0 border-b border-gray-300 flex justify-between items-center bg-green-400 text-white">
-        <h1 className="text-5xl font-extrabold text-[#ff5f5f] tracking-wider border-b-8 border-amber-200 pb-2 drop-shadow-md font-[Noto Sans Devanagari]">
-    गुटर-गू
-  </h1>
-
-        
-        
+          <span className="px-[10px] text-white  font-bold">
+            {" "}
+            {user.name.toUpperCase()}
+          </span>
+        </div>
 
         {/* Menu */}
         <div className="relative">
@@ -53,11 +58,8 @@ const SidebarHeader = ({menuOpen, setMenuOpen}) => {
           )}
         </div>
       </header>
-
-        </>
-        
-    )
-    
-}
+    </>
+  );
+};
 
 export default SidebarHeader;

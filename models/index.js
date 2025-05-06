@@ -3,7 +3,6 @@ const Chat = require("./Chat");
 const Group = require("./Group");
 const GroupMembers = require("./GroupMembers");
 
-// Chat associations
 Group.hasMany(Chat, {
   foreignKey: "groupId",
   onDelete: "CASCADE",
@@ -16,7 +15,7 @@ Chat.belongsTo(User, { foreignKey: "senderId" });
 User.hasMany(Group, { foreignKey: "ownerId" });
 Group.belongsTo(User, { foreignKey: "ownerId" });
 
-// Group ↔ User with roles in GroupMembers
+
 User.belongsToMany(Group, {
   through: GroupMembers,
   as: "memberGroups",
