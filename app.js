@@ -36,9 +36,9 @@ app.use("/group", loggedinUsersOnly, GroupRouter);
 app.use(express.static(path.join(__dirname, "public")));
 
 // Fallback to index.html for frontend routes
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "public", "index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 // Sync DB
 const syncDB = async () => {
