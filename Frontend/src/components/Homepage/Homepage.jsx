@@ -18,7 +18,7 @@ const Homepage = () => {
       <div className="flex h-[100%] ">
         <Sidebar currGroup={currGroup} setCurrGroup={setCurrGroup} />
 
-        <div className="flex flex-col flex-1">
+        <div className="flex flex-col flex-1 h-[100vh]">
           <NavBar/>
         <Outlet />
         </div>

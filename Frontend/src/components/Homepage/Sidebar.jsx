@@ -38,7 +38,7 @@ const Sidebar = ({ currGroup ,setCurrGroup }) => {
   
 
   return (
-    <div className=" w-[35%] md:w-[40%] xl:w-[30%]  sticky top-0  overflow-scroll bg-green-300 border-r border-gray-300">
+    <div className=" w-[35%] md:w-[40%] xl:w-[30%] h-[100vh] sticky top-0  hide-scrollbar overflow-scroll bg-green-300 border-r border-gray-300">
       
       <SidebarHeader setMenuOpen={setMenuOpen} menuOpen={menuOpen} />
       {/* Group List */}

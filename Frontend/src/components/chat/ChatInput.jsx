@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../utils/AuthProvider";
 import socket from "../../../config/socket";
 
-
 const ChatInput = ({ groupId, socket }) => {
   const [message, setMessage] = useState("");
   const { loggedinUser } = useContext(AuthContext);
@@ -15,7 +14,6 @@ const ChatInput = ({ groupId, socket }) => {
     if (!trimmedMessage) return;
 
     try {
-      
       socket.emit("chatMessage", {
         roomId: groupId,
         message: trimmedMessage,
@@ -25,7 +23,6 @@ const ChatInput = ({ groupId, socket }) => {
         },
       });
 
-      
       await api.post(`/chat`, {
         senderId: loggedinUser,
         groupId,
@@ -39,8 +36,8 @@ const ChatInput = ({ groupId, socket }) => {
   };
 
   return (
-    <footer className="bg-amber-200 border-t absolute bottom-0 border-green-300 w-full mr-3 p-2 px-10">
-      <div className="flex px-10 items-center">
+    <footer className="bg-amber-200 border-t absolute bottom-0 border-green-300 w-[99%] p-2 ">
+      <div className="flex  items-center">
         <input
           type="text"
           value={message}

@@ -21,7 +21,7 @@ const Chats = () => {
 
     return (
         <>
-        <div className=" h-[100%] mt-2">
+        <div className="bg-blue-400 w-full overflow-scroll h-[100%] py-3.5 hide-scrollbar ">
         {chats.map( (chat,idx) => {
             
             if(chat.senderId == userId)

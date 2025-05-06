@@ -21,7 +21,8 @@ const AppLayout = () => {
     <>
     <AuthProvider>
     <PrivateRoute>
-      <div className="relative bg-blue-600 h-[100vh] overflow-hidden">
+    <div className="relative bg-blue-600 hide-scrollbar !h-[100vh]">
+
         
           {/* <NavBar /> */}
           <Outlet />

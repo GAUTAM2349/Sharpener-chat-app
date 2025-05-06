@@ -14,8 +14,7 @@ function NavBar() {
   
   return (
     
-    <Navbar expand="lg" className="bg-green-500 z-10  ">
-      
+    <Navbar expand="lg" className="bg-green-500  z-[4] sticky top-0">
       
       <Container>
         

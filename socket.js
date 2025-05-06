@@ -23,13 +23,14 @@ module.exports = (io) => {
     });
 
     
-    socket.on("chatMessage", ({ room, message }) => {
+    socket.on("chatMessage", ({ roomId, message, sender }) => {
+      console.log(" chat received ")
       const chat = {
         message,
-        sender: socket.id,
+        senderId:sender.id,
         createdAt: new Date(),
       };
-      io.to(room).emit("chatMessage", chat);
+      io.to(roomId).emit("chatMessage", chat);
     });
 
     

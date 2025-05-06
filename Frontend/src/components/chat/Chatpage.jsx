@@ -61,8 +61,9 @@ const Chatpage = () => {
 
     socket.emit("joinRoom", { currGroup, userId: user.id });
 
-    socket.on("chatMessage", (message) => {
-      setChats((prev) => [...prev, message]);
+    socket.on("chatMessage", (chat) => {
+      console.log("frontend got message ",chat)
+      setChats((prev) => [...prev, chat]);
     });
 
     socket.on("onlineUsers", (users) => {
@@ -78,13 +79,13 @@ const Chatpage = () => {
   }, [currGroup]);
 
   return (
-    <div className="h-[100vh] w-full flex flex-col pt-[20px] pb-[100px] bg-amber-200 relative">
+    <div className="h-[50vh] w-full flex flex-col flex-1  pb-[10px] bg-amber-200 relative hide-scrollbar">
       
 
       <div
-        className="absolute top-[-47] z-50 right-3  py-2 px-3 bg-green-600 text-white rounded hover:bg-green-700 cursor-pointer"
-        onClick={() => navigate(`/group-info/${currGroup}/${ownerId}`)}
-      >
+    className="fixed top-2 right-3 z-[1000] py-2 px-3 bg-green-600 text-white rounded hover:bg-green-700 cursor-pointer"
+    onClick={() => navigate(`/group-info/${currGroup}/${ownerId}`)}
+  >
         {group.name}
       </div>
 
@@ -94,7 +95,7 @@ const Chatpage = () => {
       </div>
 
       {chats && (
-        <div className="flex-1 overflow-y-auto px-2">
+        <div className="flex-1 overflow-y-scroll hide-scrollbar">
           <ChatsContext.Provider value={{ chats }}>
             <Chats />
           </ChatsContext.Provider>
